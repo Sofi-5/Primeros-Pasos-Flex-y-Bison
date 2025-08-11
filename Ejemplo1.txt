@@ -1,0 +1,51 @@
+# Análisis de la salida
+Al ejecutar el código, el programa cuenta tres valores:
+
+lines → Número de líneas leídas (incrementa en cada \n).
+
+words → Número de palabras que contienen únicamente letras ([a-zA-Z]+).
+
+chars → Número total de caracteres procesados, incluidos letras, símbolos, espacios y saltos de línea.
+El formato de salida:
+   líneas   palabras   caracteres
+
+se imprime como tres enteros justificados a la derecha gracias al printf("%8d%8d%8d\n", ...).
+Lo que indica la funcionalidad
+
+El programa funciona como un contador de palabras, líneas y caracteres similar al comando wc de Unix, aunque más simple.
+
+Detecta palabras únicamente si están compuestas por letras (no cuenta números ni palabras con guiones o acentos).
+
+Los saltos de línea cuentan como un carácter más (chars++ en la regla \n).
+
+Los espacios y símbolos se contabilizan como caracteres, pero no como palabras.
+
+Posibles resultados inesperados o errores
+
+El main no tiene tipo de retorno declarado; en C moderno debería ser int main(...).
+
+Falta #include <stdio.h> y #include <string.h> para que printf y strlen funcionen correctamente.
+
+Si hay caracteres no ASCII o acentuados, no se cuentan como parte de las palabras, lo que puede dar un conteo menor de lo esperado.
+
+Un archivo vacío produce salida 0 0 0, lo cual es correcto pero puede sorprender a quien espera que cuente al menos una línea.
+
+El conteo de caracteres suma los saltos de línea, por lo que chars será mayor que la suma de longitudes de todas las palabras.
+
+Aprendizajes
+
+El programa muestra cómo usar reglas léxicas en flex para clasificar la entrada en distintos tipos de tokens y realizar conteos.
+
+La definición de “palabra” depende estrictamente de la expresión regular usada.
+
+Es importante inicializar y declarar correctamente funciones y librerías para evitar problemas de compilación.
+
+El análisis de salida ayuda a comprender cómo cada regla en el analizador léxico afecta los resultados globales.
+
+Desafíos encontrados
+
+Asegurar que las reglas de conteo coincidan con la definición esperada de palabra y carácter.
+
+Manejo de caracteres especiales y acentuados, que requieren ajustes en la expresión regular.
+
+Interpretar correctamente la diferencia entre chars y la suma de longitudes de palabras.
