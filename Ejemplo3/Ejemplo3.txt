@@ -1,0 +1,40 @@
+Calculator Token Recognizer (Lex/Flex)
+
+Descripción
+-----------
+Este analizador léxico identifica y clasifica tokens básicos usados en una calculadora simple. 
+Cada símbolo o número reconocido se imprime con su nombre de token correspondiente.
+
+Ejemplo de uso
+--------------
+Entrada:
+3 + 5
+
+Salida:
+NUMBER 3
+PLUS
+NUMBER 5
+NEWLINE
+
+Funcionamiento
+--------------
+- Símbolos matemáticos: reconoce `+`, `-`, `*`, `/` y `|`, asignando los tokens:
+  PLUS, MINUS, TIMES, DIVIDE y ABS.
+- Números: reconoce secuencias de dígitos `[0-9]+` y las imprime como `NUMBER valor`.
+- Saltos de línea: imprime `NEWLINE`.
+- Espacios y tabulaciones: se ignoran.
+- Caracteres desconocidos: se reportan como `Mystery character valor`.
+
+Limitaciones
+------------
+- No reconoce números negativos, decimales o expresiones con paréntesis.
+- No evalúa operaciones; solo clasifica tokens.
+- Caracteres no contemplados se muestran como "Mystery character".
+- No diferencia entre `|` como valor absoluto y otros posibles usos.
+
+Aprendizajes
+------------
+- Flex permite mapear caracteres o patrones a nombres de tokens fácilmente.
+- La última regla `.` funciona como un "catch-all" para capturar cualquier símbolo inesperado.
+- Este patrón es la base para implementar analizadores más complejos integrados con un parser.
+
