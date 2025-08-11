@@ -1,0 +1,36 @@
+English to American Translator (Lex/Flex)
+
+Descripción
+-----------
+Este analizador léxico convierte ciertas palabras del inglés británico a sus equivalentes en inglés estadounidense 
+(o sinónimos aproximados). Se utiliza un conjunto de reglas literales en Flex para identificar y reemplazar términos 
+específicos, dejando intacto el resto del texto.
+
+Ejemplo de uso
+--------------
+Entrada:
+I like the colour of your flat.
+
+Salida:
+I like the color of your apartment.
+
+Funcionamiento
+--------------
+- Cada regla busca una coincidencia exacta (por ejemplo, "colour") y la sustituye usando printf.
+- Si el texto no coincide con ninguna regla, se imprime tal cual gracias a la regla por defecto:
+  . { printf("%s", yytext); }
+- El orden de las reglas es importante: Flex evalúa de arriba hacia abajo y elige la coincidencia más larga posible.
+
+Limitaciones
+------------
+- Sensible a mayúsculas y minúsculas: "Colour" o "COLOUR" no se reemplazan.
+- No procesa coincidencias parciales (por ejemplo, "coloured" no será modificado).
+- No maneja signos de puntuación pegados a la palabra (por ejemplo, "colour," no coincide).
+- Algunos reemplazos cambian el sentido original del texto (por ejemplo, "smart" → "elegant").
+
+Aprendizajes
+------------
+- Flex permite crear filtros de texto sencillos con reglas directas.
+- El control de casos especiales (mayúsculas, pluralización, puntuación) requiere expresiones regulares más complejas.
+- El orden de las reglas influye en los resultados y puede evitar reemplazos no deseados.
+
