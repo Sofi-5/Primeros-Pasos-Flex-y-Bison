@@ -17,4 +17,4 @@ Cada carpeta tiene un Makefile, pero también puedes compilar manualmente.
 Cada ejercicio cuenta con su readme indicando a detalle el funcionamiento y manejo de este para dar una mejor solución al problema.
 
 ✏️ Autor
-Trabajo desarrollado por [Laura Sofia Londoño Perez] como parte de la tarea "Primeros pasos con Flex y Bison".
+Trabajo desarrollado por Laura Sofia Londoño Perez como parte de la tarea "Primeros pasos con Flex y Bison".
