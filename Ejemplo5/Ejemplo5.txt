@@ -1,0 +1,60 @@
+Calculator with Bison and Flex
+
+Descripción
+-----------
+Este proyecto implementa una calculadora aritmética simple utilizando:
+- **Bison/Yacc** (`.y`): Define la gramática y las acciones semánticas para evaluar expresiones.
+- **Flex** (`.l`): Define el analizador léxico que reconoce números, operadores y otros símbolos.
+
+Características
+---------------
+- Soporta operaciones: suma (+), resta (-), multiplicación (*), división (/), valor absoluto (|).
+- Evalúa expresiones respetando la precedencia de operadores.
+- Imprime el resultado de cada línea de entrada al presionar Enter.
+- Maneja espacios y tabulaciones de forma transparente.
+
+Estructura de Archivos
+----------------------
+1. **Archivo `.y` (Bison/Yacc)**
+   - Declara tokens: `NUMBER`, `ADD`, `SUB`, `MUL`, `DIV`, `ABS`, `EOL`.
+   - Define la gramática:
+     - `calclist`: lista de cálculos, cada uno finalizado con EOL.
+     - `exp`: suma y resta.
+     - `factor`: multiplicación y división.
+     - `term`: números y valor absoluto.
+   - Acciones semánticas (`{ ... }`) realizan la operación y almacenan el resultado en `$$`.
+
+2. **Archivo `.l` (Flex)**
+   - Reconoce:
+     - Números (`[0-9]+`) → convierte a entero (`atoi`) y asigna a `yylval`.
+     - Operadores `+ - * / |` → retorna token correspondiente.
+     - Saltos de línea (`\n`) → retorna `EOL`.
+     - Espacios y tabs → ignorados.
+     - Otros caracteres → reportados como no reconocidos.
+   - Incluye el archivo generado por Bison (`fb1-5.tab.h`) para usar las definiciones de tokens.
+
+Ejemplo de Uso
+--------------
+Entrada:
+2 + 3
+4 * 5
+| -7 |
+Salida:
+= 5
+= 20
+= 7
+
+Limitaciones
+------------
+- No maneja números decimales ni negativos directos (el signo menos se interpreta como operador de resta).
+- División por cero no está controlada, lo que puede causar error en tiempo de ejecución.
+- El valor absoluto solo funciona como operador unario precediendo un número o expresión.
+- No soporta paréntesis.
+
+Aprendizajes
+------------
+- Bison permite definir gramáticas con acciones que calculan valores en tiempo de análisis sintáctico.
+- Flex se encarga de dividir la entrada en tokens y pasar valores numéricos mediante `yylval`.
+- La integración entre `.y` y `.l` se logra incluyendo el header generado por Bison en el lexer.
+- Separar el análisis léxico y sintáctico facilita la organización y escalabilidad del código.
+
