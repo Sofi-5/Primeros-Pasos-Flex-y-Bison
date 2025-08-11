@@ -1,0 +1,49 @@
+Calculator Token Recognizer with Token Codes (Lex/Flex)
+
+Descripción
+-----------
+Este analizador léxico identifica tokens para una calculadora simple y devuelve un código numérico para cada tipo de token, 
+siguiendo una enumeración predefinida (`enum yytokentype`). 
+Además, cuando se detecta un número, se almacena su valor entero en `yylval` para su posterior uso por el parser.
+
+Ejemplo de uso
+--------------
+Entrada:
+3 + 5
+
+Salida:
+258 = 3
+259
+258 = 5
+264
+
+(En este ejemplo, los números corresponden a:
+258 = NUMBER, 259 = ADD, 264 = EOL)
+
+Funcionamiento
+--------------
+- **Tokens reconocidos:**
+  - `+` → ADD (259)
+  - `-` → SUB (260)
+  - `*` → MUL (261)
+  - `/` → DIV (262)
+  - `|` → ABS (263)
+  - `[0-9]+` → NUMBER (258), además guarda el valor en `yylval` con `atoi(yytext)`.
+  - `\n` → EOL (264)
+- Espacios y tabulaciones se ignoran.
+- Caracteres no reconocidos se reportan como `Mystery character X`.
+
+Limitaciones
+------------
+- No reconoce números negativos ni decimales.
+- No procesa paréntesis ni funciones matemáticas.
+- El código numérico de tokens es fijo; no imprime el nombre del token directamente.
+- Caracteres inesperados no detienen la ejecución, solo se reportan.
+
+Aprendizajes
+------------
+- Flex puede integrarse con un parser (como Bison/Yacc) usando valores de retorno numéricos para los tokens.
+- `yylval` se utiliza para pasar datos (como valores numéricos) desde el lexer al parser.
+- La enumeración `enum yytokentype` ayuda a mantener consistencia en la asignación de códigos de tokens.
+- El bucle principal (`while(tok = yylex())`) permite procesar y mostrar cada token secuencialmente.
+
